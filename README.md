@@ -1,26 +1,27 @@
 # android-vedio-upload-and-download
 安卓视频上传与下载
 核心代码：
-if (localUrl == null) {
-					localUrl = Environment.getExternalStorageDirectory()
-							.getAbsolutePath()
-							+ "/VideoCache/"
-							+ System.currentTimeMillis() + ".mp4";
+
+                   if (localUrl == null) {
+			localUrl = Environment.getExternalStorageDirectory()
+				.getAbsolutePath()
+				+ "/VideoCache/"
+				+ System.currentTimeMillis() + ".mp4";
 				}
 				Log.d("localUrl: " , localUrl);
 				File cacheFile = new File(localUrl);
 				if (!cacheFile.exists()) {
 					cacheFile.getParentFile().mkdirs();
-					try {
+				       	try {
 						cacheFile.createNewFile();
-					} catch (IOException e) {
+				       	} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
 				readSize = cacheFile.length();
 				try {
-					out = new FileOutputStream(cacheFile, true);
+				out = new FileOutputStream(cacheFile, true);
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -29,16 +30,15 @@ if (localUrl == null) {
 					return;
 				}
 				mHandler.sendEmptyMessage(VIDEO_STATE_UPDATE);
-		        try {
+		            try {
 		            while ((len = inputStream.read(buffer)) != -1) {
 		                // 处理下载的数据
 		            	try{
 							out.write(buffer, 0, len);
 							readSize += len;
-		            } catch (Exception e) {
+		               } catch (Exception e) {
 						e.printStackTrace();
 					}
-					
 					
 					
 					
