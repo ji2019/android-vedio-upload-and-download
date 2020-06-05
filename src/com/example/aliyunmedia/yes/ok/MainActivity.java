@@ -38,7 +38,7 @@ import android.widget.Toast;
 	private ProgressBar pb;
 	private String path,objectname;
 	private EditText filename;
-	 private static final int PHOTO_REQUEST_GALLERY = 2;// ´ÓÏà²áÖĞÑ¡Ôñ
+	 private static final int PHOTO_REQUEST_GALLERY = 2;// ä»ç›¸å†Œä¸­é€‰æ‹©
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +61,7 @@ import android.widget.Toast;
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(MainActivity.this, PlayVideoActivity.class);
 				intent.putExtra("objectname", objectname);
-				//ÉèÖÃ»º´æÄ¿Â¼
+				//è®¾ç½®ç¼“å­˜ç›®å½•
 				intent.putExtra("cache",
 						Environment.getExternalStorageDirectory().getAbsolutePath()
 								+ "/VideoCache/" + System.currentTimeMillis() + ".mp4");
@@ -79,15 +79,15 @@ import android.widget.Toast;
 
     public void selectvideo(View view)
     {
-    	//Ìøµ½Í¼¿â
+    	//è·³åˆ°å›¾åº“
     	  Intent intent = new Intent(Intent.ACTION_PICK);
-    	  //Ñ¡ÔñµÄ¸ñÊ½ÎªÊÓÆµ,Í¼¿âÖĞ¾ÍÖ»ÏÔÊ¾ÊÓÆµ£¨Èç¹ûÍ¼Æ¬ÉÏ´«µÄ»°¿ÉÒÔ¸ÄÎªimage/*£¬Í¼¿â¾ÍÖ»ÏÔÊ¾Í¼Æ¬£©
+    	  //é€‰æ‹©çš„æ ¼å¼ä¸ºè§†é¢‘,å›¾åº“ä¸­å°±åªæ˜¾ç¤ºè§†é¢‘ï¼ˆå¦‚æœå›¾ç‰‡ä¸Šä¼ çš„è¯å¯ä»¥æ”¹ä¸ºimage/*ï¼Œå›¾åº“å°±åªæ˜¾ç¤ºå›¾ç‰‡ï¼‰
     	           intent.setType("video/*");
-    	           // ¿ªÆôÒ»¸ö´øÓĞ·µ»ØÖµµÄActivity£¬ÇëÇóÂëÎªPHOTO_REQUEST_GALLERY
+    	           // å¼€å¯ä¸€ä¸ªå¸¦æœ‰è¿”å›å€¼çš„Activityï¼Œè¯·æ±‚ç ä¸ºPHOTO_REQUEST_GALLERY
     	           startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
     }
 //    /*
-//          * ÅĞ¶ÏsdcardÊÇ·ñ±»¹ÒÔØ
+//          * åˆ¤æ–­sdcardæ˜¯å¦è¢«æŒ‚è½½
 //          */
 //         private boolean hasSdcard() {
 //             if (Environment.getExternalStorageState().equals(
@@ -98,26 +98,26 @@ import android.widget.Toast;
 //             }
 //         }
     public void beginupload(){
-    	//Í¨¹ıÌîĞ´ÎÄ¼şÃûĞÎ³Éobjectname,Í¨¹ıÕâ¸öÃû×ÖÖ¸¶¨ÉÏ´«ºÍÏÂÔØµÄÎÄ¼ş
+    	//é€šè¿‡å¡«å†™æ–‡ä»¶åå½¢æˆobjectname,é€šè¿‡è¿™ä¸ªåå­—æŒ‡å®šä¸Šä¼ å’Œä¸‹è½½çš„æ–‡ä»¶
     	objectname=filename.getText().toString();
     	if(objectname==null||objectname.equals("")){
-    		Toast.makeText(MainActivity.this, "ÎÄ¼şÃû²»ÄÜÎª¿Õ", 2000).show();
+    		Toast.makeText(MainActivity.this, "æ–‡ä»¶åä¸èƒ½ä¸ºç©º", 2000).show();
     		return;
     	}
-    	//ÌîĞ´×Ô¼ºµÄOSSÍâÍøÓòÃû
+    	//å¡«å†™è‡ªå·±çš„OSSå¤–ç½‘åŸŸå
 		String endpoint = "http://oss-cn-shanghai.aliyuncs.com";
-		//ÌîĞ´Ã÷ÎÄaccessKeyIdºÍaccessKeySecret£¬¼ÓÃÜ¹ÙÍøÓĞ
-    	OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider("5wpkJus0wsbkUefR", "Hf2xHZe0bX71h55FRAcVpIRVBQYWlO ");
+		//å¡«å†™æ˜æ–‡accessKeyIdå’ŒaccessKeySecretï¼ŒåŠ å¯†å®˜ç½‘æœ‰
+    	OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider("****", "**** ");
 		OSS oss = new OSSClient(getApplicationContext(), endpoint, credentialProvider);
-		//ÏÂÃæ3¸ö²ÎÊıÒÀ´ÎÎªbucketÃû£¬ObjectÃû£¬ÉÏ´«ÎÄ¼şÂ·¾¶
+		//ä¸‹é¢3ä¸ªå‚æ•°ä¾æ¬¡ä¸ºbucketåï¼ŒObjectåï¼Œä¸Šä¼ æ–‡ä»¶è·¯å¾„
     	PutObjectRequest put = new PutObjectRequest("qhtmedia", objectname, path);
     	if(path==null||path.equals("")){
-    		detail.setText("ÇëÑ¡ÔñÊÓÆµ!!!!");
+    		detail.setText("è¯·é€‰æ‹©è§†é¢‘!!!!");
     		return;
     	}
-				tv.setText("ÕıÔÚÉÏ´«ÖĞ....");
+				tv.setText("æ­£åœ¨ä¸Šä¼ ä¸­....");
 		    	pb.setVisibility(View.VISIBLE);
-    	// Òì²½ÉÏ´«£¬¿ÉÒÔÉèÖÃ½ø¶È»Øµ÷
+    	// å¼‚æ­¥ä¸Šä¼ ï¼Œå¯ä»¥è®¾ç½®è¿›åº¦å›è°ƒ
     	put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
     		@Override
     	    public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
@@ -129,7 +129,7 @@ import android.widget.Toast;
     	    @Override
     	    public void onSuccess(PutObjectRequest request, PutObjectResult result) {
     	        Log.d("PutObject", "UploadSuccess");
-    	        //È¥UIÏß³Ì¸üĞÂUI
+    	        //å»UIçº¿ç¨‹æ›´æ–°UI
     	    	runOnUiThread(new Runnable() {
    				@Override
     				public void run() {
@@ -141,7 +141,7 @@ import android.widget.Toast;
     	    }
     	    @Override
     	    public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
-    	        // ÇëÇóÒì³£
+    	        // è¯·æ±‚å¼‚å¸¸
     	    	runOnUiThread(new Runnable() {
        				@Override
         				public void run() {
@@ -151,11 +151,11 @@ import android.widget.Toast;
        				}
         			});
     	        if (clientExcepion != null) {
-    	            // ±¾µØÒì³£ÈçÍøÂçÒì³£µÈ
+    	            // æœ¬åœ°å¼‚å¸¸å¦‚ç½‘ç»œå¼‚å¸¸ç­‰
     	            clientExcepion.printStackTrace();
     	        }
     	        if (serviceException != null) {
-    	            // ·şÎñÒì³£
+    	            // æœåŠ¡å¼‚å¸¸
     	        	tv.setText("Uploadfile,servererror");
     	            Log.e("ErrorCode", serviceException.getErrorCode());
     	            Log.e("RequestId", serviceException.getRequestId());
@@ -164,23 +164,23 @@ import android.widget.Toast;
     	        }
     	    }
     	});
-    	// task.cancel(); // ¿ÉÒÔÈ¡ÏûÈÎÎñ
-//    	 task.waitUntilFinished(); // ¿ÉÒÔµÈ´ıÖ±µ½ÈÎÎñÍê³É
+    	// task.cancel(); // å¯ä»¥å–æ¶ˆä»»åŠ¡
+//    	 task.waitUntilFinished(); // å¯ä»¥ç­‰å¾…ç›´åˆ°ä»»åŠ¡å®Œæˆ
 }
          @Override
               protected void onActivityResult(int requestCode, int resultCode, Intent data) {
                  if (requestCode == PHOTO_REQUEST_GALLERY) {
-                     // ´ÓÏà²á·µ»ØµÄÊı¾İ
+                     // ä»ç›¸å†Œè¿”å›çš„æ•°æ®
                      if (data != null) {
-                         // µÃµ½ÊÓÆµµÄÈ«Â·¾¶
+                         // å¾—åˆ°è§†é¢‘çš„å…¨è·¯å¾„
                         Uri uri = data.getData();
                         getRealFilePath(MainActivity.this,uri);
                      }
                  } 
                  super.onActivityResult(requestCode, resultCode, data);
              }
-        /* ÏÂÃæÊÇ4.4ºóÍ¨¹ıUri»ñÈ¡Â·¾¶ÒÔ¼°ÎÄ¼şÃûÒ»ÖÖ·½·¨£¬±ÈÈçµÃµ½µÄÂ·¾¶ /storage/emulated/0/video/20160422.3gp£¬
-                                 Í¨¹ıË÷Òı×îºóÒ»¸ö/¾Í¿ÉÒÔÔÚStringÖĞ½ØÈ¡ÁË*/
+        /* ä¸‹é¢æ˜¯4.4åé€šè¿‡Uriè·å–è·¯å¾„ä»¥åŠæ–‡ä»¶åä¸€ç§æ–¹æ³•ï¼Œæ¯”å¦‚å¾—åˆ°çš„è·¯å¾„ /storage/emulated/0/video/20160422.3gpï¼Œ
+                                 é€šè¿‡ç´¢å¼•æœ€åä¸€ä¸ª/å°±å¯ä»¥åœ¨Stringä¸­æˆªå–äº†*/
          public  void getRealFilePath( final Context context, final Uri uri ) {
              if ( null == uri ) return ;
              final String scheme = uri.getScheme();
